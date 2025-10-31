@@ -1,0 +1,233 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#notes {
+  color: rgb(235, 91, 91);
+  font-size: small;
+  margin-top: 5px;
+}
+
+/* Body Styling */
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Matches about.css */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: #fff;
+}
+
+#dontAccount{
+  color: #00e0ff;
+}
+#registerHTML{
+  color: rgb(8, 8, 255);
+
+}
+
+/* Container */
+.container {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 35px 40px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 420px;
+  transition: all 0.3s ease-in-out;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* For large version */
+.container.large {
+  max-width: 900px;
+  padding: 40px;
+}
+
+/* Inputs & Buttons */
+input,
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+  border-color: #00e0ff;
+  box-shadow: 0 0 8px rgba(0, 224, 255, 0.5);
+}
+
+button {
+  background: linear-gradient(135deg, #00e0ff, #00bfa5);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #00bfa5, #00e0ff);
+  transform: translateY(-2px);
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th,
+td {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
+}
+
+th {
+  background: rgba(0, 224, 255, 0.2);
+  color: #00e0ff;
+}
+
+tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Headings or titles */
+.container h2 {
+  text-align: center;
+  color: #00e0ff;
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* ===== NAVBAR STYLING ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 32, 39, 0.95);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.navbar h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #00e0ff;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #00e0ff;
+}
+
+/* Adjust layout below navbar */
+body {
+  padding-top: 80px; /* To avoid overlap of fixed navbar */
+}
+
+/* ✅ Responsive Navbar for small screens */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+  .navbar h1 {
+    font-size: 20px;
+  }
+
+  .navbar a {
+    margin-top: 5px;
+    font-size: 15px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 30px;
+  }
+
+  .container {
+    max-width: 90%;
+    padding: 25px;
+  }
+
+  input,
+  button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  input,
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}

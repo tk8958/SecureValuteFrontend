@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | Secure Vault</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <h1>🔐 Secure Vault</h1>
+    </div>
+    <div class="nav-right">
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h2>Create Account</h2>
+    <form id="registerForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" minlength="6" required>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="index.html">Login</a></p>
+      <p id="notes">Note:- You can't create two or more accounts with one email.</p>
+    </form>
+    <p id="msg"></p>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
