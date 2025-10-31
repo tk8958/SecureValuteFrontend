@@ -1,5 +1,5 @@
 // app.js - with client-side PBKDF2 + AES-GCM encryption
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = "securevalutebackend3-production.up.railway.app";
 
 // ----------------- Utilities: base64 & buffer helpers -----------------
 function bufToBase64(buf) {
