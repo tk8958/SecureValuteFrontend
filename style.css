@@ -1,4 +1,4 @@
-/* Reset */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,10 +11,10 @@
   margin-top: 5px;
 }
 
-/* Body Styling */
+
 body {
   font-family: "Poppins", Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Matches about.css */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +31,7 @@ body {
 
 }
 
-/* Container */
+
 .container {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
@@ -45,13 +45,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* For large version */
+
 .container.large {
   max-width: 900px;
   padding: 40px;
 }
 
-/* Inputs & Buttons */
+
 input,
 button {
   width: 100%;
@@ -90,7 +90,6 @@ button:hover {
   transform: translateY(-2px);
 }
 
-/* Table Styling */
 table {
   width: 100%;
   margin-top: 20px;
@@ -121,7 +120,7 @@ tr:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Headings or titles */
+
 .container h2 {
   text-align: center;
   color: #00e0ff;
@@ -130,7 +129,7 @@ tr:hover {
   font-weight: 600;
 }
 
-/* ===== NAVBAR STYLING ===== */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -165,12 +164,12 @@ tr:hover {
   color: #00e0ff;
 }
 
-/* Adjust layout below navbar */
+
 body {
-  padding-top: 80px; /* To avoid overlap of fixed navbar */
+  padding-top: 80px; 
 }
 
-/* ✅ Responsive Navbar for small screens */
+
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;
@@ -188,7 +187,6 @@ body {
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   body {
     padding: 30px;
