@@ -1,7 +1,6 @@
-// app.js - with client-side PBKDF2 + AES-GCM encryption
+
 const BASE_URL = "https://securevalutebackend3-production.up.railway.app/api";
 
-// ----------------- Utilities: base64 & buffer helpers -----------------
 function bufToBase64(buf) {
   return btoa(String.fromCharCode(...new Uint8Array(buf)));
 }
@@ -14,9 +13,6 @@ function strToBuf(str) {
 function bufToStr(buf) {
   return new TextDecoder().decode(buf);
 }
-
-// ----------------- Crypto helpers -----------------
-// Derive a CryptoKey from password + salt (PBKDF2)
 async function deriveKey(masterPassword, saltBase64) {
   const salt = base64ToBuf(saltBase64);
   const pwKey = await crypto.subtle.importKey(
@@ -30,7 +26,7 @@ async function deriveKey(masterPassword, saltBase64) {
     {
       name: "PBKDF2",
       salt: salt,
-      iterations: 250000, // strong enough for demo; tune if needed
+      iterations: 250000, 
       hash: "SHA-256"
     },
     pwKey,
@@ -54,17 +50,17 @@ if (form) {
 
 
 
-// Create random salt (16 bytes)
+
 function makeSalt() {
   const s = crypto.getRandomValues(new Uint8Array(16));
   return bufToBase64(s);
 }
 
-// Encrypt plaintext (returns {ciphertext, iv, salt} all base64)
+
 async function encryptWithPassword(plainText, masterPassword) {
   const saltB64 = makeSalt();
   const key = await deriveKey(masterPassword, saltB64);
-  const iv = crypto.getRandomValues(new Uint8Array(12)); // 96-bit IV for AES-GCM
+  const iv = crypto.getRandomValues(new Uint8Array(12));
   const cipherBuf = await crypto.subtle.encrypt(
     { name: "AES-GCM", iv: iv },
     key,
@@ -77,7 +73,7 @@ async function encryptWithPassword(plainText, masterPassword) {
   };
 }
 
-// Decrypt
+
 async function decryptWithPassword(ciphertextB64, ivB64, saltB64, masterPassword) {
   try {
     const key = await deriveKey(masterPassword, saltB64);
@@ -88,16 +84,15 @@ async function decryptWithPassword(ciphertextB64, ivB64, saltB64, masterPassword
     );
     return bufToStr(plainBuf);
   } catch (e) {
-    // decryption failed (wrong master password or corrupted data)
+
     return null;
   }
 }
 
-// ----------------- UI helpers -----------------
+
 function setMsg(text){ const el=document.getElementById('msg'); if(el) el.innerText=text; }
 function escapeHtml(text){ if(!text) return ''; return text.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
 
-// ----------------- AUTH (unchanged logic) -----------------
 const registerForm = document.getElementById('registerForm');
 if(registerForm){
   registerForm.addEventListener('submit', async (e)=> {
@@ -108,8 +103,8 @@ if(registerForm){
   setMsg('Registered successfully! Redirecting to login...');
   setTimeout(()=>location.href='index.html',1000);
 } else { 
-  const msg = await res.text(); // backend ka message lo
-  alert(msg || 'Registration failed'); // alert me dikhao
+  const msg = await res.text(); 
+  alert(msg || 'Registration failed'); 
   setMsg(msg || 'Registration failed');
 }
 
@@ -132,7 +127,7 @@ if(loginForm){
   });
 }
 
-// ----------------- Master Password handling -----------------
+
 let MASTER_PASSWORD = null;
 
 document.getElementById('setMasterBtn')?.addEventListener('click', (e) => {
@@ -144,13 +139,12 @@ document.getElementById('setMasterBtn')?.addEventListener('click', (e) => {
   }
   MASTER_PASSWORD = mp;
   document.getElementById('masterStatus').innerText = "Master key set (session)";
-  // clear input for safety (optional)
+
   document.getElementById('masterPassword').value = '';
-  // after setting master, load and decrypt passwords
+
   loadPasswords();
 });
 
-// ----------------- DASHBOARD: add, load, delete with encryption -----------------
 const addForm = document.getElementById('addForm');
 if(addForm){
   addForm.addEventListener('submit', async (e)=> {
@@ -161,8 +155,6 @@ if(addForm){
     const title = document.getElementById('title').value;
     const username = document.getElementById('username').value;
     const passwordField = document.getElementById('passwordField').value;
-
-    // Encrypt password locally
     const enc = await encryptWithPassword(passwordField, MASTER_PASSWORD);
 
     const dto = {
@@ -198,7 +190,6 @@ async function loadPasswords(){
   const list = await res.json();
   const tbody = document.querySelector('#passwordTable tbody'); tbody.innerHTML='';
   for(const p of list){
-    // Initially show masked password; provide button to show (decrypt)
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>${escapeHtml(p.title)}</td>
                     <td>${escapeHtml(p.username)}</td>
@@ -231,15 +222,14 @@ async function deletePassword(id){
 document.getElementById('logoutBtn')?.addEventListener('click', ()=> { localStorage.removeItem('token'); MASTER_PASSWORD = null; location.href='index.html'; });
 
 if(window.location.pathname.endsWith('dashboard.html')) {
-  // do not auto load decrypted passwords until master is set
+
   loadPasswords();
 }
 
 
-// ----------------- DARK MODE TOGGLE -----------------
+
 const themeToggle = document.getElementById('themeToggle');
 if (themeToggle) {
-  // Check if user previously selected dark mode
   if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark-mode');
     themeToggle.textContent = '☀️ Light Mode';
@@ -249,7 +239,7 @@ if (themeToggle) {
     document.body.classList.toggle('dark-mode');
     const isDark = document.body.classList.contains('dark-mode');
     themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-    // Save preference
+  
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
 }
